@@ -43,3 +43,24 @@ Horde.Registry.lookup(HordesDemo.DistributedRegistry, HordesDemo.Worker)
 ## Demo Video
 
 [Horde Demo](https://www.youtube.com/watch?v=NPV_bAObK6U)
+
+### Network Partitions
+
+```
+# /etc/hosts
+127.0.0.1       demo1.local
+127.0.0.1       demo2.local
+127.0.0.1       demo3.local
+```
+
+```sh
+iex --name demo1@demo1.local --cookie hola -S mix
+iex --name demo2@demo2.local --cookie hola -S mix
+iex --name demo3@demo3.local --cookie hola -S mix
+```
+
+```ex
+[:'demo3@demo3.local', :'demo2@demo2.local'] |> Enum.map(&Node.disconnect/1)
+[:'demo3@demo3.local', :'demo2@demo1.local'] |> Enum.map(&Node.disconnect/1)
+[:'demo3@demo3.local', :'demo2@demo2.local'] |> Enum.map(&Node.connect/1)
+```
