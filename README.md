@@ -34,9 +34,9 @@ ERL_AFLAGS="-name demo3@127.0.0.1 -setcookie hola" iex -S mix
 ```ex
 Horde.Supervisor.start_child(HordesDemo.DistributedSupervisor, HordesDemo.Worker)
 HordesDemo.Worker.say_hello(HordesDemo.Worker)
-Node.connect(:'demo1@127.0.0.1')
-Node.connect(:'demo2@127.0.0.1')
-Node.connect(:'demo3@127.0.0.1')
+Node.connect(:'demo1@demo1.local')
+Node.connect(:'demo2@demo2.local')
+Node.connect(:'demo3@demo3.local')
 Horde.Registry.lookup(HordesDemo.DistributedRegistry, HordesDemo.Worker)
 ```
 
